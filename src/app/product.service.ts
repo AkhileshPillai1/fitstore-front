@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Products } from './products/products';
 import { Observable, of } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private heroesUrl = "http://localhost:3000/products/";
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  constructor() { }
+  // getProducts():Observable<object[]> {
+  //   return of(Products);
+  // }
 
-  getProducts():Observable<object[]> {
-    return of(Products);
-  }
+  /** GET heroes from the server */
+  getProducts(): Observable<object[]> {
+  return this.http.get<object[]>(this.heroesUrl);
+}
 
   getProduct(id: string): Observable<object> {
-    // For now, assume that a hero with the specified `id` always exists.
-    // Error handling will be added in the next step of the tutorial.
-    const product = Products.find(p => p.productName === id)!;
-    return of(product);
+    return this.http.get<object[]>(`${this.heroesUrl}${id}`);
+    // const product = Products.find(p => p.productName === id)!;
+    // return of(product);
   }
 }
