@@ -1,17 +1,30 @@
-<div class="flex justify-center items-center h-24">
+<div class="flex justify-start m-15 p-4">
   <h2>All Products</h2>
 </div>
 
-
-<ul class="flex justify-around">
-
-  <div *ngFor="let product of products">
-    <a routerLink="/detail/{{product._id}}">
-      <li class="border-2 w-36 h-24 flex justify-center items-center">
-        {{product.productName}} :
-        <span class="text-xs text-gray-300"> {{product.price}}</span>
-      </li>
-    </a>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 p-4">
+  <div class="max-w-sm border border-gray-800 rounded overflow-hidden shadow-lg m-4 cursor-pointer"
+    *ngFor="let product of products" (click)="openProductDetail(product._id)">
+    <img class="w-full h-40"
+      src="https://t3.ftcdn.net/jpg/03/59/61/14/360_F_359611414_DYnYxjujb7KCSrnruEsOYERCRiQmVTGY.jpg"
+      alt="Sunset in the mountains">
+    <div class="p-2">
+      <p class="">{{product.productName}}</p>
+      <p class="flex font-semibold">Rs. <span>{{product.price}}</span>
+      </p>
+    </div>
   </div>
-
-</ul>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 p-4">
+  <div class="max-w-sm border border-gray-800 rounded overflow-hidden shadow-lg m-4 cursor-pointer"
+    *ngFor="let product of products" (click)="openProductDetail(product._id)">
+    <img class="w-full h-40"
+      src="https://hips.hearstapps.com/hmg-prod/images/hlh030119bodysupplementlab-01-1551475340.jpg?crop=1.00xw:0.745xh;0,0.255xh&resize=640:*"
+      alt="Sunset in the mountains">
+    <div class="p-2">
+      <p class="">{{product.productName}}</p>
+      <p class="flex font-semibold">Rs. <span>{{product.price}}</span>
+      </p>
+    </div>
+  </div>
+</div>

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { ProductService } from '../product.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -14,7 +14,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
   title = "Fit shop";
   products = [];
   selectedProduct;
@@ -27,6 +27,11 @@ export class ProductsComponent {
     this.productService.getProducts().subscribe(res=>{
       this.products = res;
     });
+  }
+
+  openProductDetail(productId){
+    console.log(productId)
+    this.router.navigate(['/detail/', productId])
   }
 
 }
