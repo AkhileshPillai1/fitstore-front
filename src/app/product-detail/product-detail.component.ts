@@ -9,22 +9,23 @@ import { ProductService } from '../product.service';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [FormsModule,NgIf,UpperCasePipe],
+  imports: [FormsModule, NgIf, UpperCasePipe],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
 export class ProductDetailComponent {
+  quantity: number = 1;
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private location: Location
-  ) {}
+  ) { }
   @Input() product;
 
   ngOnInit(): void {
     this.getProduct();
   }
-  
+
   getProduct(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.productService.getProduct(id)
@@ -36,5 +37,17 @@ export class ProductDetailComponent {
 
   goBack(): void {
     this.location.back();
+  }
+
+  addQuantity() {
+    this.quantity++;
+  }
+
+  removeQuantity() {
+    this.quantity--;
+  }
+
+  getCartValue() {
+    console.log(this.quantity)
   }
 }

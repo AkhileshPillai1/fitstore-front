@@ -10,15 +10,37 @@
 </div> -->
 
 <div *ngIf="product" class="flex justify-center">
-    <div class="w-full max-w-6xl grid grid-cols-2 border-t">
+    <div class="w-full max-w-6xl grid grid-cols-2 border-t items-center">
         <div>
             <img src="{{product.images[0]}}" alt="" srcset="">
         </div>
-        <div class="pt-10">
+        <div class="pt-10 pl-3">
             <p class="font-medium text-3xl text-slate-800">{{product.productName}}</p>
             <p class="text-xl mt-2 text-slate-600">{{product.description}}</p>
             <p class="font-bold mt-2 text-2xl">Price : {{product.price}}</p>
+            <div class="flex mt-7 items-center">
+                <p>Select Quantity</p>
+                <div class="ms-6">
+                    <div class="inline-flex rounded-md shadow-sm" role="group">
+                        <button type="button" (click)="removeQuantity()"
+                            class="px-5 py-3 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100">
+                            -
+                        </button>
+                        <div disabled [innerText]="quantity"
+                            class="px-5 py-3 text-md font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100">
+                            
+                    </div>
+                        <button type="button" (click)="addQuantity()"
+                            class="px-5 py-3 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100">
+                            +
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-x-2.5 mt-5">
+                <button class="bg-slate-400 px-5 py-3">Add to Cart</button>
+                <button class="bg-slate-400 px-5 py-3">Buy Now</button>
+            </div>
         </div>
     </div>
 </div>
-
