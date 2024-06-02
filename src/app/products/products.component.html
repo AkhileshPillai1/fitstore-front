@@ -6,20 +6,7 @@
   <div class="max-w-sm border border-gray-800 rounded overflow-hidden shadow-lg m-4 cursor-pointer"
     *ngFor="let product of products" (click)="openProductDetail(product._id)">
     <img class="w-full h-40"
-      src="https://t3.ftcdn.net/jpg/03/59/61/14/360_F_359611414_DYnYxjujb7KCSrnruEsOYERCRiQmVTGY.jpg"
-      alt="Sunset in the mountains">
-    <div class="p-2">
-      <p class="">{{product.productName}}</p>
-      <p class="flex font-semibold">Rs. <span>{{product.price}}</span>
-      </p>
-    </div>
-  </div>
-</div>
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 p-4">
-  <div class="max-w-sm border border-gray-800 rounded overflow-hidden shadow-lg m-4 cursor-pointer"
-    *ngFor="let product of products" (click)="openProductDetail(product._id)">
-    <img class="w-full h-40"
-      src="https://hips.hearstapps.com/hmg-prod/images/hlh030119bodysupplementlab-01-1551475340.jpg?crop=1.00xw:0.745xh;0,0.255xh&resize=640:*"
+      src="{{product?.images[0]}}"
       alt="Sunset in the mountains">
     <div class="p-2">
       <p class="">{{product.productName}}</p>

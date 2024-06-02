@@ -28,8 +28,8 @@ export class ProductDetailComponent {
   getProduct(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.productService.getProduct(id)
-      .subscribe((product) => {
-        this.product = product
+      .subscribe((res) => {
+        this.product = res
         console.log(this.product)
       });
   }

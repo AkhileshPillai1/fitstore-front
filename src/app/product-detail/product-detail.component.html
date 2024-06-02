@@ -1,11 +1,24 @@
 <button class="flex justify-start" type="button" (click)="goBack()">go back</button>
 
-<div *ngIf="product" class="flex justify-center">
+<!-- <div *ngIf="product" class="flex justify-center">
     <div><h2>{{product.productName | uppercase}} Details</h2>
         <div>Price: {{product.price}}</div>
         <div>
             Name : {{product.productName}}
         </div></div>
     
+</div> -->
+
+<div *ngIf="product" class="flex justify-center">
+    <div class="w-full max-w-6xl grid grid-cols-2 border-t">
+        <div>
+            <img src="{{product.images[0]}}" alt="" srcset="">
+        </div>
+        <div class="pt-10">
+            <p class="font-medium text-3xl text-slate-800">{{product.productName}}</p>
+            <p class="text-xl mt-2 text-slate-600">{{product.description}}</p>
+            <p class="font-bold mt-2 text-2xl">Price : {{product.price}}</p>
+        </div>
+    </div>
 </div>
 
