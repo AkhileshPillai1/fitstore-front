@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Products } from './products/products';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -7,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ProductService {
-  private heroesUrl = "http://localhost:3000/products/";
+  private url = "http://localhost:3000/products/";
   constructor(
     private http: HttpClient
   ) { }
@@ -18,11 +17,11 @@ export class ProductService {
 
   /** GET heroes from the server */
   getProducts(): Observable<object[]> {
-  return this.http.get<object[]>(this.heroesUrl);
+  return this.http.get<object[]>(this.url);
 }
 
   getProduct(id: string): Observable<object> {
-    return this.http.get<object[]>(`${this.heroesUrl}${id}`);
+    return this.http.get<object[]>(`${this.url}${id}`);
     // const product = Products.find(p => p.productName === id)!;
     // return of(product);
   }

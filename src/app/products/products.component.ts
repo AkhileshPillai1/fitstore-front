@@ -3,7 +3,7 @@ import { UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
-import { ProductService } from '../product.service';
+import { ProductService } from '../services/product.service';
 import { RouterLink, Router } from '@angular/router';
 
 @Component({

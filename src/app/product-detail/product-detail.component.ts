@@ -4,7 +4,8 @@ import { UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { ProductService } from '../product.service';
+import { ProductService } from '../services/product.service';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -18,6 +19,7 @@ export class ProductDetailComponent {
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
+    private commonService: CommonService,
     private location: Location
   ) { }
   @Input() product;
@@ -44,10 +46,24 @@ export class ProductDetailComponent {
   }
 
   removeQuantity() {
-    this.quantity--;
+    if (this.quantity > 1)
+      this.quantity--;
   }
 
-  getCartValue() {
-    console.log(this.quantity)
+
+
+  addProductToCart() {
+    let cartObject = {
+      productId: this.product._id,
+      quantity: this.quantity
+    };
+    this.commonService.addToCart(cartObject)
+      .subscribe((res) => {
+        if (res["success"]) {
+          console.log("Add to cart success");
+        }
+      }, (err) => {
+        console.log("Failed to add item to cart");
+      });
   }
 }
