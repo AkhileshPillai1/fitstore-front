@@ -60,10 +60,9 @@ export class ProductDetailComponent {
     this.commonService.addToCart(cartObject)
       .subscribe((res) => {
         if (res["success"]) {
+          this.commonService.showToast('Added to Cart');
           console.log("Add to cart success");
         }
-      }, (err) => {
-        console.log("Failed to add item to cart");
       });
   }
 }
