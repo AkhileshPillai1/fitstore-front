@@ -1,1 +1,13 @@
-<p class="p-6 m-6">cart works!</p>
+<div class="flex justify-center">My Cart</div>
+<div class="flex justify-center">
+    <div *ngIf="cart" class="grid grid-cols-1">
+        <div class="flex justify-center" *ngFor="let item of cart">
+            <div><img [src]="item.product.images[0]" class="w-32 h-32"></div>
+            <div>{{item.product.productName}}
+                Quantity: {{item.userQuantity}}
+                <span>Price: {{item.product.price}}</span></div>
+        </div>
+
+    </div>
+    <div class="total">Total</div>
+</div>

@@ -15,9 +15,16 @@ export class CommonService {
 
   addToCart(cartObject:object):Observable<object>{
     const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJOYW1lIjoiSm9objEyMyIsImVtYWlsSWQiOiJqb2huc21pdGhAZ21haWwuY29tIn0sImlhdCI6MTcxNzUwMDAxMiwiZXhwIjoxNzE3NTAzNjEyfQ.O95nWAlDLNr51NC2y0K9kic1RK1-GdRKYoBEKv0Om1A'
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJOYW1lIjoiSm9objEyMyIsImVtYWlsSWQiOiJqb2huc21pdGhAZ21haWwuY29tIn0sImlhdCI6MTcxNzgyNDMzNSwiZXhwIjoxNzE3ODM4NzM1fQ.UUnTA5KUQqM3STBUfXVSesNMHgOq2gb_ZNvYnS321k4'
     });
     return this.http.post(`${this.url}common/addtocart`,cartObject,{headers});
+  }
+
+  getCartDetails(){
+    const headers = new HttpHeaders({
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJOYW1lIjoiSm9objEyMyIsImVtYWlsSWQiOiJqb2huc21pdGhAZ21haWwuY29tIn0sImlhdCI6MTcxNzgyNDMzNSwiZXhwIjoxNzE3ODM4NzM1fQ.UUnTA5KUQqM3STBUfXVSesNMHgOq2gb_ZNvYnS321k4'
+    });
+    return this.http.get(`${this.url}common/getcart`,{headers});
   }
 
   showToast(message: string): void {
