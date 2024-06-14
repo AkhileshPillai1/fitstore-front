@@ -11,32 +11,20 @@
             <div class="flex items-center col-span-2 px-4">
                 <div>
                     <p class="font-semibold">{{item.product.productName}}</p>
-                    <p>Quantity: {{item.userQuantity}}</p>
                     <p>
                         <span class="line-through text-gray-500">&#8377;{{item.product.price}}</span>
                         <span class="ml-1 mr-2">&#8377;{{item.product.price-(item.product.discountPercentage/100*item.product.price)}}</span>
                         <span class="text-pink-500"> {{item.product.discountPercentage}}% OFF</span>
                     </p>
-                    <div class="mt-2">
-                        <div class="inline-flex rounded-md shadow-sm" role="group">
-                            <button type="button"
-                                class="px-2 py-1 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100">
-                                -
-                            </button>
-                            <div disabled [innerText]="item.userQuantity"
-                                class="px-2 py-1 text-md font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100">
-                                
-                        </div>
-                            <button type="button"
-                                class="px-2 py-1 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100">
-                                +
-                            </button>
-                        </div>
+                    <div class="custom-select">
+                        <label for="" class="mr-2">Quantity</label>
+                        <select [(ngModel)]="item.userQuantity" (change)="onChangeQunatity(item)">
+                            <option value="{{i}}" *ngFor="let i of quantity">{{i}}</option>
+                        </select>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-    <!-- <div class="total">Total</div> -->
 </div>
+
