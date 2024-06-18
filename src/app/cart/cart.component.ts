@@ -32,12 +32,10 @@ export class CartComponent {
   }
 
   onChangeQunatity(product){
-    console.log(product)
     let payload = {
       "productId": product.product._id,
       "userQuantity":product.userQuantity
     }
-    console.log(payload)
     this.commonService.updateCartQuantity(payload).subscribe((res)=>{})
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpHeaders  } from '@angular/common/http';
+import { HttpClient  } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -14,24 +14,15 @@ export class CommonService {
   ) { }
 
   addToCart(cartObject:object):Observable<object>{
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJOYW1lIjoiSm9objEyMyIsImVtYWlsSWQiOiJqb2huc21pdGhAZ21haWwuY29tIn0sImlhdCI6MTcxODM4MDcxMCwiZXhwIjoxNzE4Mzk1MTEwfQ.bvit9Y52wyQ3QDTKdlS46r-OmWqr2lIamgI-shExpQA'
-    });
-    return this.http.post(`${this.url}common/addtocart`,cartObject,{headers});
+    return this.http.post(`${this.url}common/addtocart`,cartObject);
   }
 
   getCartDetails(){
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJOYW1lIjoiSm9objEyMyIsImVtYWlsSWQiOiJqb2huc21pdGhAZ21haWwuY29tIn0sImlhdCI6MTcxODM4MDcxMCwiZXhwIjoxNzE4Mzk1MTEwfQ.bvit9Y52wyQ3QDTKdlS46r-OmWqr2lIamgI-shExpQA'
-    });
-    return this.http.get(`${this.url}common/getcart`,{headers});
+    return this.http.get(`${this.url}common/getcart`);
   }
 
   updateCartQuantity(payLoad: object){
-    const headers = new HttpHeaders({
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJOYW1lIjoiSm9objEyMyIsImVtYWlsSWQiOiJqb2huc21pdGhAZ21haWwuY29tIn0sImlhdCI6MTcxODM4MDcxMCwiZXhwIjoxNzE4Mzk1MTEwfQ.bvit9Y52wyQ3QDTKdlS46r-OmWqr2lIamgI-shExpQA'
-    });
-    return this.http.post(`${this.url}common/updateCartQuantity`,payLoad,{headers});
+    return this.http.post(`${this.url}common/updateCartQuantity`,payLoad);
   }
 
   showToast(message: string): void {

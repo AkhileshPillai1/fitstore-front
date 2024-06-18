@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
@@ -30,7 +30,6 @@ export class ProductsComponent {
   }
 
   openProductDetail(productId){
-    console.log(productId)
     this.router.navigate(['/detail/', productId])
   }
 

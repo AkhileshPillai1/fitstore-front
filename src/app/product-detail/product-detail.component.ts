@@ -33,7 +33,6 @@ export class ProductDetailComponent {
     this.productService.getProduct(id)
       .subscribe((res) => {
         this.product = res
-        console.log(this.product)
       });
   }
 
@@ -61,7 +60,6 @@ export class ProductDetailComponent {
       .subscribe((res) => {
         if (res["success"]) {
           this.commonService.showToast('Added to Cart');
-          console.log("Add to cart success");
         }
       });
   }
