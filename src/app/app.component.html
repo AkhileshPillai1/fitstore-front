@@ -1,6 +1,6 @@
 <nav class="p-4 bg-gray-800 text-white flex justify-around">
   <p>Fit Store</p>
-  <div class="space-x-4">
+  <div class="flex space-x-4">
     <a routerLink="/products" routerLinkActive="active">Products</a>
     <div *ngIf="authService.currentUser() === null">
       <a routerLink="/login" routerLinkActive="active">Login</a>
