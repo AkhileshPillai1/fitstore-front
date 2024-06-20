@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-login',
@@ -12,19 +13,25 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
-  constructor(private formBuilder:FormBuilder,private router:Router){}
+  constructor(private formBuilder: FormBuilder, private router: Router) { }
   authService = inject(AuthService);
+  commonService = inject(CommonService);
   loginForm = this.formBuilder.group({
-    emailId:['', Validators.required],
-    password:['']
+    emailId: ['', Validators.required],
+    password: ['']
   })
 
-  onSubmit(){
-    this.authService.login(this.loginForm.value).subscribe((res)=>{
-      localStorage.setItem('authToken',res["bearerToken"]);
-      this.authService.currentUser.set(res);
-      this.router.navigateByUrl('/products');
-    })
+  onSubmit() {
+    this.authService.login(this.loginForm.value).subscribe(
+      {
+        next: (res) => {
+          localStorage.setItem('authToken', res["bearerToken"]);
+          this.authService.currentUser.set(res);
+          this.router.navigateByUrl('/products');
+        },
+      error: () => {
+        this.commonService.showToast({message:'Incorrect user credentials',type:"error"});
+      }});
   }
 
 }

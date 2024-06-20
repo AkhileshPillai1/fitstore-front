@@ -57,9 +57,14 @@ export class ProductDetailComponent {
       quantity: this.quantity
     };
     this.commonService.addToCart(cartObject)
-      .subscribe((res) => {
-        if (res["success"]) {
-          this.commonService.showToast('Added to Cart');
+      .subscribe({
+        next: (res) => {
+          if (res["success"]) {
+            this.commonService.showToast({message:'Added to cart!',type:"success"});
+          }
+        },
+        error: () => {
+            this.commonService.showToast({message:'Something went wrong, please try again later',type:"error"});
         }
       });
   }

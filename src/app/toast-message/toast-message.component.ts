@@ -1,25 +1,33 @@
 import { Component } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { CommonService } from '../services/common.service';
+import { ToastMessage } from '../models/toast';
 
 @Component({
   selector: 'app-toast-message',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf,NgStyle],
   templateUrl: './toast-message.component.html',
   styleUrl: './toast-message.component.css'
 })
 export class ToastMessageComponent {
   message: string = '';
   show: boolean = false;
+  backgroundColor:string = "green";
   private toastSubscription: Subscription = new Subscription();
 
   constructor(private commonService: CommonService) {}
 
   ngOnInit(): void {
-    this.toastSubscription = this.commonService.toastState.subscribe((toastMessage: string) => {
-      this.message = toastMessage;
+    this.toastSubscription = this.commonService.toastState.subscribe((toastMessage: ToastMessage) => {
+      this.message = toastMessage.message;
+      if(toastMessage.type === "error"){
+        this.backgroundColor = "red";
+      }
+      else if(toastMessage.type === "success"){
+        this.backgroundColor = "green";
+      }
       this.show = true;
       setTimeout(() => {
         this.show = false;
