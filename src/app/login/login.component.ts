@@ -17,8 +17,8 @@ export class LoginComponent {
   authService = inject(AuthService);
   commonService = inject(CommonService);
   loginForm = this.formBuilder.group({
-    emailId: ['', Validators.required],
-    password: ['']
+    emailId: ['johnsmith@gmail.com', Validators.required],
+    password: ['johnsmithx321']
   })
 
   onSubmit() {

@@ -11,3 +11,26 @@ select {
     color: #000;
     cursor: pointer;
 }
+
+.left{
+    height: 60vh;
+    width: 600px;
+    max-height: 60vh;
+    overflow-y: scroll;
+}
+
+.right{
+    width: 400px;
+}
+
+.coupon{
+    background-color: #F7F8F9;
+    width: 400px;
+}
+
+.checkout{
+    margin-top: 20px;
+    background-color: #72A0C1;
+    width: 400px;
+    height: 40px;
+}

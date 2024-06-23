@@ -26,6 +26,10 @@ export class CommonService {
     return this.http.post(`${this.url}common/updateCartQuantity`,payLoad);
   }
 
+  deleteProductFromCart(productId: string){
+    return this.http.get(`${this.url}common/deleteproductfromcart`,{params:{productId}});
+  }
+
   showToast(message: ToastMessage): void {
     this.toastSubject.next(message);
   }
