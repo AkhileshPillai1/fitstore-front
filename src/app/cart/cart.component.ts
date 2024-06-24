@@ -48,7 +48,7 @@ export class CartComponent {
 
     let total = this.totalMrp - this.discountOnMrp + this.deliveryFee;
     this.couponAmt = total * this.couponDiscount / 100;
-    this.totalAmount = total - (total * this.couponDiscount / 100);
+    this.totalAmount = (total - (total * this.couponDiscount / 100)).toFixed(2);
   }
 
   getCartDetails() {

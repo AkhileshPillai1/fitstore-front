@@ -4,7 +4,7 @@
 <div *ngIf="cart" class="flex justify-center space-x-10">
     <div class="left pr-5">
         <div class="grid grid-cols-3 mb-4 ml-2 p-3 relative shadow item" *ngFor="let item of cart">
-            <button class="material-symbols-outlined absolute right-2 mt-2"
+            <button class="material-symbols-outlined absolute right-2 mt-2 text-gray-600"
                 (click)="deleteItemFromCart(item.product._id)">
                 delete
             </button>
