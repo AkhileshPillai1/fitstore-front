@@ -4,11 +4,12 @@ import { ToastMessageComponent } from './toast-message/toast-message.component';
 import { AuthService } from './services/auth.service';
 import { NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { NgxUiLoaderModule } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, ToastMessageComponent, NgIf],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive, ToastMessageComponent, NgIf,NgxUiLoaderModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

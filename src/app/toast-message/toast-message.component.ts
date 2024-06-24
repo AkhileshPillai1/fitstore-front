@@ -28,7 +28,14 @@ export class ToastMessageComponent {
       else if(toastMessage.type === "success"){
         this.backgroundColor = "green";
       }
-      this.show = true;
+      if(toastMessage.timeout && toastMessage.timeout != 0){
+        setTimeout(()=>{
+          this.show = true;
+        },toastMessage.timeout);
+      }
+      else{
+        this.show = true;
+      }
       setTimeout(() => {
         this.show = false;
       }, 3000);

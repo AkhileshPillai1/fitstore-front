@@ -2,7 +2,7 @@
     <div class="my-10 pb-5 text-3xl font-bold max-w-3xl">My Cart</div>
 </div>
 <div *ngIf="cart" class="flex justify-center space-x-10">
-    <div class="left pr-2">
+    <div class="left pr-5">
         <div class="grid grid-cols-3 mb-4 ml-2 p-3 relative shadow item" *ngFor="let item of cart">
             <button class="material-symbols-outlined absolute right-2 mt-2"
                 (click)="deleteItemFromCart(item.product._id)">
@@ -18,14 +18,14 @@
                     <p class="mb-3 text-gray-500">{{item.product.description}}</p>
                     <p>
                         <span *ngIf="item.product.discountPercentage > 0">
-                        <span class="line-through text-gray-500">&#8377;{{item.product.price}}</span>
-                        <span
-                            class="ml-1 mr-2 font-semibold">&#8377;{{item.product.price-(item.product.discountPercentage/100*item.product.price)}}</span>
-                        <span class="text-pink-500"> {{item.product.discountPercentage}}% OFF</span>
-                    </span>
-                    <span *ngIf="item.product.discountPercentage === 0">
-                        <span class="font-semibold">&#8377;{{item.product.price}}</span>
-                    </span>
+                            <span class="line-through text-gray-500">&#8377;{{item.product.price}}</span>
+                            <span
+                                class="ml-1 mr-2 font-semibold">&#8377;{{item.product.price-(item.product.discountPercentage/100*item.product.price)}}</span>
+                            <span class="text-pink-500"> {{item.product.discountPercentage}}% OFF</span>
+                        </span>
+                        <span *ngIf="item.product.discountPercentage === 0">
+                            <span class="font-semibold">&#8377;{{item.product.price}}</span>
+                        </span>
                     </p>
                     <div class="custom-select">
                         <label for="" class="mr-2">Quantity</label>
@@ -48,8 +48,14 @@
             </div>
 
             <div class="flex justify-center relative items-center mt-4">
-                <input type="text" class="coupon bg-slate-200 h-14 pl-2" placeholder="Enter coupon">
-                <button class="text-blue-400 absolute right-7 font-semibold">APPLY</button>
+                <input type="text" class="coupon bg-slate-200 h-14 pl-2" placeholder="Enter coupon" [(ngModel)]="coupon"
+                    [disabled]="validCoupon">
+                <button *ngIf="!validCoupon" class="text-blue-400 absolute right-7 font-semibold"
+                    (click)="checkAndApplyCoupon()">APPLY</button>
+                <button *ngIf="validCoupon" class="text-red-400 absolute right-3 font-semibold"
+                    (click)="remmoveCoupon()"><span class="material-symbols-outlined text-3xl">
+                        cancel
+                    </span></button>
             </div>
         </div>
         <div class="">
@@ -86,21 +92,31 @@
                         </p>
                     </div>
                     <hr>
-                    <div class="flex items-center justify-between pt-5">
-                        <p class="font-semibold">Total Amount :</p>
-                        <p class="flex items-center">
-                            <span class="material-symbols-outlined text-lg">
-                                currency_rupee
-                            </span> {{totalAmount}}
-                        </p>
+                    <div class=" pt-5">
+                        <div *ngIf="validCoupon" class="flex items-center justify-between my-2 text-green-300">
+                            <p class="text-green-300">Coupon Discount :</p>
+                            <p class="flex items-center">
+                                <span class="material-symbols-outlined text-lg">
+                                    currency_rupee
+                                </span> {{couponAmt}}
+                            </p>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="font-semibold">Total Amount :</p>
+                            <p class="flex items-center">
+                                <span class="material-symbols-outlined text-lg">
+                                    currency_rupee
+                                </span> {{totalAmount}}
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="flex justify-center">
                     <button class="checkout text-white">CHECKOUT</button>
                 </div>
-                
+
             </div>
-            
+
         </div>
     </div>
 </div>

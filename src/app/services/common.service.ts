@@ -30,8 +30,14 @@ export class CommonService {
     return this.http.get(`${this.url}common/deleteproductfromcart`,{params:{productId}});
   }
 
+  validateAndFetchCoupon(couponCode: string){
+    return this.http.get(`${this.url}common/validateandfetchcoupon`,{params:{couponCode}});
+  }
+
   showToast(message: ToastMessage): void {
-    this.toastSubject.next(message);
+    setTimeout(()=>{
+      this.toastSubject.next(message);
+    },700)
   }
 
 }

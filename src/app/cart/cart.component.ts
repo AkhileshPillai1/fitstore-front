@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommonService } from '../services/common.service';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgxUiLoaderRouterModule, NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Component({
   selector: 'app-cart',
@@ -16,13 +17,18 @@ export class CartComponent {
   discountOnMrp;
   totalMrp;
   deliveryFee;
+  coupon: string;
+  couponDiscount: number = 0;
+  validCoupon: boolean = false;
   quantity: Array<number>;
+  couponAmt: number;
 
   constructor(
     private commonService: CommonService,
+    private loaderService: NgxUiLoaderService
   ) {
     this.deliveryFee = 50;
-   }
+  }
 
   @Input('ngModel')
 
@@ -40,7 +46,9 @@ export class CartComponent {
       return sum + (value.product.price * value.userQuantity);
     }, 0);
 
-    this.totalAmount = this.totalMrp - this.discountOnMrp + this.deliveryFee;
+    let total = this.totalMrp - this.discountOnMrp + this.deliveryFee;
+    this.couponAmt = total * this.couponDiscount / 100;
+    this.totalAmount = total - (total * this.couponDiscount / 100);
   }
 
   getCartDetails() {
@@ -51,26 +59,65 @@ export class CartComponent {
   }
 
   deleteItemFromCart(productId) {
+    this.loaderService.start();
     this.commonService.deleteProductFromCart(productId).subscribe({
       next: (res) => {
         if (res) {
-          this.commonService.showToast({ message: 'Successfully deleted!', type: "success" });
+          this.commonService.showToast({ message: 'Successfully deleted!', type: "success", timeout: 250 });
           this.getCartDetails();
+          this.loaderService.stop();
         }
       },
       error: () => {
-        this.commonService.showToast({ message: 'Something went wrong, please try again later', type: "error" });
+        this.commonService.showToast({ message: 'Something went wrong, please try again later', type: "error", timeout: 250 });
+        this.loaderService.stop();
       }
     })
   }
 
   onChangeQuantity(product) {
+    this.loaderService.start();
     let payload = {
       "productId": product.product._id,
       "userQuantity": product.userQuantity
     }
-    this.commonService.updateCartQuantity(payload).subscribe((res) => {
-      this.calculatePriceDetails();
-    })
+    this.commonService.updateCartQuantity(payload).subscribe({
+      next: (res) => {
+        this.calculatePriceDetails();
+        this.loaderService.stop();
+      },
+      error: () => {
+        this.loaderService.stop();
+      }
+    });
   }
+
+  checkAndApplyCoupon() {
+    this.loaderService.start();
+    this.commonService.validateAndFetchCoupon(this.coupon).subscribe({
+      next: (res) => {
+        if (res["isValid"]) {
+          this.couponDiscount = res["couponData"]["discountPercentage"];
+          this.loaderService.stop();
+          this.commonService.showToast({ message: `${this.couponDiscount}% off applied successfully!`, type: "success",timeout:250 });
+          this.validCoupon = true;
+          this.calculatePriceDetails();
+        }
+        else {
+          this.commonService.showToast({ message: `Invalid coupon!`, type: "error", timeout:300 });
+          setTimeout(() => {
+            this.loaderService.stop()
+          }, 500);
+        }
+      }
+    });
+  }
+
+  remmoveCoupon() {
+    this.couponDiscount = 0;
+    this.coupon = "";
+    this.validCoupon = false;
+    this.calculatePriceDetails();
+  }
+
 }
