@@ -1,18 +1,18 @@
 <div class="flex mx-20 mt-32">
   <div class="filters border">FILTERS</div>
   <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 p-4 gap-4">
-    <div class="product max-w-lg border border-gray-300 rounded overflow-hidden shadow-lg m-4" *ngFor="let product of products" >
+    <div class="product max-w-lg border border-gray-300 rounded overflow-hidden shadow-lg mx-4 my-2" *ngFor="let product of products" >
       <div class="cursor-pointer flex items-center p-2 space-x-3" (click)="openProductDetail(product._id)">
         <img class="w-48 h-40" src="{{product?.images[0]}}" alt="Sunset in the mountains">
         <div class="">
           <p class="font-semibold">{{product.productName}}</p>
-          <p class="text-xs text-gray-500">{{product.description}}</p>
+          <p class="text-xs text-gray-600">{{product.details}}</p>
           <div class="mt-3">
             <p *ngIf="product.discountPercentage!=0" class="flex items-center">
               <span class="line-through text-gray-500">&#8377; {{product.price}}</span>
               <span class="ml-1 font-semibold">&#8377;{{product.price-(product.price *
                 product.discountPercentage/100)}}</span>
-              <span class="text-xs ml-2 flex items-center text-orange-400">({{product.discountPercentage}}% OFF)</span>
+              <span class="text-xs ml-2 flex items-center text-green-400">({{product.discountPercentage}}% OFF)</span>
             </p>
             <p *ngIf="product.discountPercentage===0" class="flex font-semibold">&#8377; <span>{{product.price}}</span>
             </p>

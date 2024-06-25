@@ -1,45 +1,61 @@
-<button class="flex justify-start" type="button" (click)="goBack()">go back</button>
-
-<!-- <div *ngIf="product" class="flex justify-center">
-    <div><h2>{{product.productName | uppercase}} Details</h2>
-        <div>Price: {{product.price}}</div>
-        <div>
-            Name : {{product.productName}}
-        </div></div>
-    
-</div> -->
-
-<div *ngIf="product" class="flex justify-center">
-    <div class="w-full max-w-6xl grid grid-cols-2 border-t items-center">
-        <div>
-            <img src="{{product.images[0]}}" alt="" srcset="">
+<div *ngIf="product" class="flex justify-center mt-20 product relative">
+    <div class="w-full max-w-6xl grid grid-cols-2 items-center">
+        <div class="flex justify-center items-center">
+            <img class="productimage" src="{{product.images[0]}}" alt="" srcset="">
         </div>
-        <div class="pt-10 pl-3">
-            <p class="font-medium text-3xl text-slate-800">{{product.productName}}</p>
-            <p class="text-xl mt-2 text-slate-600">{{product.description}}</p>
-            <p class="font-bold mt-2 text-2xl">Price : {{product.price}}</p>
-            <div class="flex mt-7 items-center">
+        <div class="mx-5">
+            <div>
+                <p class="absolute top-1 text-cyan-400">
+                    {{categoryEnum[product.category]}}
+                </p>
+                <div class="my-5">
+                    <p class="text-3xl text-slate-800 font-bold">{{product.productName}}</p>
+                    <p class="text-xl text-slate-600">{{product.details}}</p>
+                </div>
+
+                <div>
+                    {{product.rating}} ({{product.reviews.length}} reviews)
+                </div>
+                <div class="my-6">
+                    <div *ngIf="product.discountPercentage!=0" class="">
+                        <div class="flex">
+                            <p class="text-xd">MRP: </p> <span class="line-through text-gray-500 text-md">&#8377;
+                                {{product.price}}</span>
+                        </div>
+                        <div class="flex text-2xl font-bold">
+                            Price: <span class="ml-1 font-semibold">&#8377;{{product.price-(product.price *
+                                product.discountPercentage/100)}}</span>
+                            <span class="text-lg ml-2 flex items-center text-green-400">({{product.discountPercentage}}%
+                                OFF)</span>
+                        </div>
+                    </div>
+                    <p *ngIf="product.discountPercentage===0" class="flex text-2xl font-bold">Price: &#8377;
+                        <span>{{product.price}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="flex mt-14 mb-7 items-center">
                 <p>Select Quantity</p>
                 <div class="ms-6">
                     <div class="inline-flex rounded-md shadow-sm" role="group">
                         <button type="button" (click)="removeQuantity()"
-                            class="px-5 py-3 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100">
+                            class="px-5 py-2 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100">
                             -
                         </button>
                         <div disabled [innerText]="quantity"
-                            class="px-5 py-3 text-md font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100">
-                            
-                    </div>
+                            class="px-5 py-2 text-md font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100">
+
+                        </div>
                         <button type="button" (click)="addQuantity()"
-                            class="px-5 py-3 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100">
+                            class="px-5 py-2 text-md font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100">
                             +
                         </button>
                     </div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-x-2.5 mt-5">
-                <button class="bg-slate-400 px-5 py-3" (click)="addProductToCart()">Add to Cart</button>
-                <button class="bg-slate-400 px-5 py-3">Buy Now</button>
+            <div class="grid grid-cols-2 gap-x-2.5">
+                <button class="btn px-5 py-3 border" (click)="addProductToCart()">Add to Cart</button>
+                <button class="px-5 py-3 border">Buy Now</button>
             </div>
         </div>
     </div>
