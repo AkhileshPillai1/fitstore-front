@@ -1,3 +1,31 @@
 .image{
     max-width: 60%;
 }
+
+.filters{
+    width: 500px;
+}
+
+.product{
+    width: 400px;
+}
+
+.rating{
+    background-color: #23A247;
+}
+
+.bg-green {
+    background-color: #23A247;
+  }
+  
+  .bg-yellow {
+    background-color: #FFBF00;
+  }
+  
+  .bg-red {
+    background-color: #880808;
+  }
+
+  .addtocart{
+    background-color: #72A0C1;
+  }

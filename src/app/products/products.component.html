@@ -1,17 +1,37 @@
-<div class="flex justify-start m-15 p-4">
-  <h2>All Products</h2>
-</div>
+<div class="flex mx-20 mt-32">
+  <div class="filters border">FILTERS</div>
+  <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 p-4 gap-4">
+    <div class="product max-w-lg border border-gray-300 rounded overflow-hidden shadow-lg m-4" *ngFor="let product of products" >
+      <div class="cursor-pointer flex items-center p-2 space-x-3" (click)="openProductDetail(product._id)">
+        <img class="w-48 h-40" src="{{product?.images[0]}}" alt="Sunset in the mountains">
+        <div class="">
+          <p class="font-semibold">{{product.productName}}</p>
+          <p class="text-xs text-gray-500">{{product.description}}</p>
+          <div class="mt-3">
+            <p *ngIf="product.discountPercentage!=0" class="flex items-center">
+              <span class="line-through text-gray-500">&#8377; {{product.price}}</span>
+              <span class="ml-1 font-semibold">&#8377;{{product.price-(product.price *
+                product.discountPercentage/100)}}</span>
+              <span class="text-xs ml-2 flex items-center text-orange-400">({{product.discountPercentage}}% OFF)</span>
+            </p>
+            <p *ngIf="product.discountPercentage===0" class="flex font-semibold">&#8377; <span>{{product.price}}</span>
+            </p>
+          </div>
+          <div class="flex items-center justify-center mt-1 w-16 text-white font-extrabold"
+            [ngClass]="getBackgroundClass(product.rating)">
+            <span>{{product.rating}}</span>
+            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#EFEFEF">
+              <path d="m243-144 63-266L96-589l276-24 108-251 108 252 276 23-210 179 63 266-237-141-237 141Z" />
+            </svg>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="flex justify-center items-center h-12 space-x-10 my-1">
+        <button class="h-10 addtocart p-2 flex items-center border text-white rounded-sm" (click)="addToCart(product._id)">ADD TO CART</button>
+        <button class="h-10 p-2 flex items-center border rounded-sm">BUY NOW</button>
+      </div>
 
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 p-4">
-  <div class="max-w-sm border border-gray-800 rounded overflow-hidden shadow-lg m-4 cursor-pointer"
-    *ngFor="let product of products" (click)="openProductDetail(product._id)">
-    <img class="w-full h-40"
-      src="{{product?.images[0]}}"
-      alt="Sunset in the mountains">
-    <div class="p-2">
-      <p class="">{{product.productName}}</p>
-      <p class="flex font-semibold">Rs. <span>{{product.price}}</span>
-      </p>
     </div>
   </div>
 </div>
