@@ -25,4 +25,8 @@ export class ProductService {
     // const product = Products.find(p => p.productName === id)!;
     // return of(product);
   }
+
+  addReview(productId, payload):Observable<object>{
+    return this.http.post<object[]>(`${this.url}addreview/?productId=${productId}`,payload);
+  }
 }

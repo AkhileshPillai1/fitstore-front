@@ -3,6 +3,7 @@ import { CommonService } from '../services/common.service';
 import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxUiLoaderRouterModule, NgxUiLoaderService } from 'ngx-ui-loader';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -25,7 +26,8 @@ export class CartComponent {
 
   constructor(
     private commonService: CommonService,
-    private loaderService: NgxUiLoaderService
+    private loaderService: NgxUiLoaderService,
+    private router: Router
   ) {
     this.deliveryFee = 50;
   }
@@ -73,6 +75,10 @@ export class CartComponent {
         this.loaderService.stop();
       }
     })
+  }
+
+  openProductDetail(productId) {
+    this.router.navigate(['/detail/', productId])
   }
 
   onChangeQuantity(product) {

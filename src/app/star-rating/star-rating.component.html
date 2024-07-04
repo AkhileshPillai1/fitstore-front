@@ -1,0 +1,8 @@
+<div class="flex space-x-1">
+    <ng-container *ngFor="let star of stars; let i = index">
+      <button type="button" (click)="setRating(i + 1)" class="focus:outline-none text-xl">
+        <i class="fa fa-star" [ngClass]="star ? 'text-yellow-500' : 'text-gray-300'"></i>
+      </button>
+    </ng-container>
+  </div>
+  

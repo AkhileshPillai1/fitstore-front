@@ -9,7 +9,7 @@
                 delete
             </button>
             <button class="absolute close mr-2"><i class="fa-solid fa-xmark"></i></button>
-            <div class="w-40 h-40">
+            <div class="w-40 h-40 cursor-pointer" (click)="openProductDetail(item.product._id)">
                 <img [src]="item.product.images[0]">
             </div>
             <div class="flex items-center col-span-2 px-4">

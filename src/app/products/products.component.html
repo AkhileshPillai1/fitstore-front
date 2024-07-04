@@ -1,5 +1,17 @@
 <div class="flex mx-20 mt-32">
-  <div class="filters border">FILTERS</div>
+  <div class="filters border">
+    
+    FILTERS
+    <div>
+      <label (click)="show = !show">SORT BY</label>
+        <ul *ngIf="show">
+          <li>1</li>
+          <li>2</li>
+          <li>3</li>
+        </ul>
+    </div>
+  </div>
+  
   <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 p-4 gap-4">
     <div class="product max-w-lg border border-gray-300 rounded overflow-hidden shadow-lg mx-4 my-2" *ngFor="let product of products" >
       <div class="cursor-pointer flex items-center p-2 space-x-3" (click)="openProductDetail(product._id)">

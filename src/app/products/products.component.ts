@@ -22,6 +22,7 @@ export class ProductsComponent {
   title = "Fit shop";
   products = [];
   selectedProduct;
+  show:boolean=false;
 
   ngOnInit(): void {
     this.getProducts();
