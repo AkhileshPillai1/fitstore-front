@@ -11,11 +11,12 @@ import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { Review } from '../models/review';
 import { AuthService } from '../services/auth.service';
 import { StarRatingComponent } from '../star-rating/star-rating.component';
+import { ReadonlyStarComponent } from '../readonly-star/readonly-star.component';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [FormsModule, NgIf, NgFor, NgClass, UpperCasePipe, ReactiveFormsModule, StarRatingComponent, DatePipe],
+  imports: [FormsModule, NgIf, NgFor, NgClass, UpperCasePipe, ReactiveFormsModule, StarRatingComponent, DatePipe, ReadonlyStarComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })

@@ -1,0 +1,7 @@
+<div class="text-2xl space-x-0.5">
+    <span *ngFor="let star of arr" class="">
+        <i *ngIf="star == 1 || star == 0" class="fa fa-star" [ngClass]="star==1 ? 'text-yellow-500':'text-gray-300'">
+        </i>
+        <i *ngIf="star < 1 && star > 0" class="fa fa-star" [style.background]="gradientStyle" [ngStyle]="additionalStyles"></i>
+    </span>
+</div>

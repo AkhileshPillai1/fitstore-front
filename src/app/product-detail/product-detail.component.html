@@ -14,7 +14,7 @@
                 </div>
 
                 <div>
-                    {{product.rating}}
+                    <app-readonly-star [stars]="product.rating"></app-readonly-star> ({{product.rating}})
                 </div>
                 <div class="my-6">
                     <div *ngIf="product.discountPercentage!=0" class="">

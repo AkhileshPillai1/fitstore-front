@@ -1,5 +1,9 @@
-<nav class="p-6 bg-gray-800 text-white flex justify-around">
+<nav class="px-6 py-4 bg-gray-800 text-white flex justify-around items-center sticky top-0 z-10">
   <a routerLink="/" routerLinkActive="active">Fit Store</a>
+  <div class="relative flex items-center">
+    <i class="fa fa-search absolute ml-3 text-xl text-slate-500" aria-hidden="true"></i>
+    <input type="text" class="bg-slate-200 w-96 h-10 rounded searchbar pl-10 text-slate-700">
+  </div>
   <div class="flex space-x-4">
     <a routerLink="/products" routerLinkActive="active">Products</a>
     <div *ngIf="authService.currentUser() === null">
@@ -7,7 +11,7 @@
     </div>
     <div *ngIf="authService.currentUser()" class="space-x-4">
       <a routerLink="/cart" routerLinkActive="active">Cart</a>
-      <a>Profile</a>
+      <a routerLink="/myprofile">Profile</a>
       <button (click)="logout()">Logout</button>
     </div>
     
