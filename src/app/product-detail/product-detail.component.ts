@@ -30,7 +30,7 @@ export class ProductDetailComponent {
   gridClass;
   showModal:boolean = false;
   reviews:Array<Review>;
-  similarProducts:Array<object>;
+  similarProducts;
 
   private router = inject(Router);
   private authService = inject(AuthService);
@@ -70,6 +70,18 @@ export class ProductDetailComponent {
       });
   }
 
+  openProductDetail(productId) {
+    this.router.navigate(['/detail/', productId])
+  }
+
+  getBackgroundClass(rating: number) {
+    if (rating >= 4)
+      return 'bg-green';
+    else if (rating >= 2.5)
+      return 'bg-yellow';
+    else
+      return 'bg-red';
+  }
   getSimilarProducts(){
     this.productService.getProducts(this.product.category).subscribe({
       next:(res)=>{

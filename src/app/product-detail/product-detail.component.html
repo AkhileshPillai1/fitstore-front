@@ -99,7 +99,7 @@
         <div *ngIf="reviews?.length>0" class="space-y-7 mt-10 review-main">
             <div *ngFor="let review of reviews" class="border rounded-md shadow p-5">
                 <div class="font-semibold flex items-center">
-                    <i class="fa fa-user-circle-o mr-2" aria-hidden="true"></i>
+                    <i class="fa fa-user mr-2" aria-hidden="true"></i>
                     <span *ngIf="review.isAnonymous==false">{{review.name}}</span>
                     <span *ngIf="review.isAnonymous==true">Anonymous</span>
                     <span class="font-normal text-slate-400 text-sm ml-7">{{ review.commentDate | date:'medium'}}</span>
@@ -117,13 +117,41 @@
     </div>
 </div>
 
-<div class="font-bold text-center mt-32 border">
+<div class="font-bold text-center mt-32 border mx-32">
     SIMILAR PRODUCTS
-    <div>
-
-    </div>
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4 gap-4 my-10">
+        <div class="simproduct max-w-lg border border-gray-300 rounded overflow-hidden shadow-lg mx-4 my-2 flex" *ngFor="let product of similarProducts" >
+          <div class="cursor-pointer flex items-center p-1 space-x-3" (click)="openProductDetail(product._id)">
+            <img class="w-40 h-36" src="{{product?.images[0]}}" alt="Sunset in the mountains">
+            <div class="text-start">
+              <p class="font-semibold">{{product.productName}}</p>
+              <p class="text-xs text-gray-600">{{product.details}}</p>
+              <div class="mt-3">
+                <p *ngIf="product.discountPercentage!=0" class="flex items-center">
+                  <span class="line-through text-gray-500">&#8377; {{product.price}}</span>
+                  <span class="ml-1 font-semibold">&#8377;{{product.price-(product.price *
+                    product.discountPercentage/100)}}</span>
+                  <span class="text-xs ml-2 flex items-center text-green-400">({{product.discountPercentage}}% OFF)</span>
+                </p>
+                <p *ngIf="product.discountPercentage===0" class="flex font-semibold">&#8377; <span>{{product.price}}</span>
+                </p>
+              </div>
+              <div class="flex items-center justify-center mt-1 w-16 text-white font-extrabold"
+                [ngClass]="getBackgroundClass(product.rating)">
+                <span>{{product.rating}}</span>
+                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#EFEFEF">
+                  <path d="m243-144 63-266L96-589l276-24 108-251 108 252 276 23-210 179 63 266-237-141-237 141Z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 </div>
 
+
+
+<!-- MODAL -->
 <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true" [hidden]="!showModal">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
