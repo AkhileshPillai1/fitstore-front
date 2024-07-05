@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,10 @@ export class ProductService {
   // }
 
   /** GET heroes from the server */
-  getProducts(): Observable<object[]> {
-  return this.http.get<object[]>(this.url);
-}
+  getProducts(category = 0): Observable<object[]> {
+    let httpParams = new HttpParams().set('category', category);
+    return this.http.get<object[]>(this.url, { params: httpParams });
+  }
 
   getProduct(id: string): Observable<object> {
     return this.http.get<object[]>(`${this.url}${id}`);
@@ -26,7 +27,7 @@ export class ProductService {
     // return of(product);
   }
 
-  addReview(productId, payload):Observable<object>{
-    return this.http.post<object[]>(`${this.url}addreview/?productId=${productId}`,payload);
+  addReview(productId, payload): Observable<object> {
+    return this.http.post<object[]>(`${this.url}addreview/?productId=${productId}`, payload);
   }
 }

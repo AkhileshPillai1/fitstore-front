@@ -21,15 +21,21 @@ import { ReadonlyStarComponent } from '../readonly-star/readonly-star.component'
   styleUrl: './product-detail.component.css'
 })
 export class ProductDetailComponent {
+
+  @Input() product;
+
   quantity: number = 1;
   categoryEnum;
   specs;
   gridClass;
   showModal:boolean = false;
   reviews:Array<Review>;
+  similarProducts:Array<object>;
+
   private router = inject(Router);
   private authService = inject(AuthService);
   private formBuilder = inject(FormBuilder);
+
   reviewForm = this.formBuilder.group({
     comment: ['', Validators.required],
     stars: [0],
@@ -39,6 +45,7 @@ export class ProductDetailComponent {
     name:[''],
     description:['']
   });
+
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
@@ -46,7 +53,6 @@ export class ProductDetailComponent {
     private location: Location,
     private loaderService: NgxUiLoaderService
   ) { }
-  @Input() product;
 
   ngOnInit(): void {
     this.getProduct();
@@ -58,9 +64,18 @@ export class ProductDetailComponent {
     this.productService.getProduct(id)
       .subscribe((res) => {
         this.product = res;
+        this.getSimilarProducts();
         this.specs =  Object.entries(this.product.specs);
         this.reviews = res["reviews"].reverse();
       });
+  }
+
+  getSimilarProducts(){
+    this.productService.getProducts(this.product.category).subscribe({
+      next:(res)=>{
+        this.similarProducts = res;
+      }
+    })
   }
   
   goBack(): void {
