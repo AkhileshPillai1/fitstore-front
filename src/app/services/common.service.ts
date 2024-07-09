@@ -8,11 +8,20 @@ import { ToastMessage } from '../models/toast';
 })
 export class CommonService {
   private url = "http://localhost:3000/";
+
   private toastSubject = new Subject<ToastMessage>();
   toastState = this.toastSubject.asObservable();
+
+  private profileSubject = new Subject<void>();//not passing any value. just notifying component that something has happened
+  profileSubject$ = this.profileSubject.asObservable();
+
   constructor(
     private http: HttpClient
   ) { }
+
+  setFormValuesInProfile(){
+    this.profileSubject.next();
+  }
 
   addToCart(cartObject:object):Observable<object>{
     return this.http.post(`${this.url}common/addtocart`,cartObject);

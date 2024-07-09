@@ -29,7 +29,7 @@ export class LoginComponent {
       {
         next: (res) => {
           localStorage.setItem('authToken', res["bearerToken"]);
-          this.authService.currentUser.set(res);
+          this.authService.currentUser.set(res['user']);
           this.loaderService.stop();
           this.router.navigateByUrl('/products');
         },

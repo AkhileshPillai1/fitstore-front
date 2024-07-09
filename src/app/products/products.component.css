@@ -8,8 +8,20 @@
 
 .product{
     width: 400px;
+    height: 200px;
 }
 
 .rating{
     background-color: #23A247;
 }
+  
+  .custom-radio {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+
+  .noproducts{
+    width: 1350px;
+  }

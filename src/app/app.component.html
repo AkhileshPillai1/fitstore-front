@@ -4,15 +4,23 @@
     <i class="fa fa-search absolute ml-3 text-xl text-slate-500" aria-hidden="true"></i>
     <input type="text" class="bg-slate-200 w-96 h-10 rounded searchbar pl-10 text-slate-700">
   </div>
-  <div class="flex space-x-4">
+  <div class="flex space-x-4 items-center">
     <a routerLink="/products" routerLinkActive="active">Products</a>
     <div *ngIf="authService.currentUser() === null">
       <a routerLink="/login" routerLinkActive="active">Login</a>
     </div>
-    <div *ngIf="authService.currentUser()" class="space-x-4">
+    <div *ngIf="authService.currentUser()" class="space-x-4 flex items-center">
       <a routerLink="/cart" routerLinkActive="active">Cart</a>
-      <a routerLink="/myprofile">Profile</a>
-      <button (click)="logout()">Logout</button>
+      <a (click)="showProfile = !showProfile" class="relative cursor-pointer"><i class="fa fa-user-circle-o text-xl" aria-hidden="true"></i>
+        <div *ngIf="showProfile" class="absolute top-6 left-5 border text-slate-700 bg-slate-100 space-y-3 p-1 rounded text-center text-sm">
+          <a routerLink="/myprofile">Edit Profile</a>
+          <button>My Orders</button>
+          <button>Contact/Help</button>
+          <button (click)="logout()">Logout</button>
+      </div>
+      </a>
+      
+      <!-- <button (click)="logout()">Logout</button> -->
     </div>
     
   </div>

@@ -117,11 +117,11 @@
     </div>
 </div>
 
-<div class="font-bold text-center mt-32 border mx-32">
+<div class="font-bold text-center mt-32 mx-44">
     SIMILAR PRODUCTS
-    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 p-4 gap-4 my-10">
+    <div class="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 p-4 gap-4 my-10">
         <div class="simproduct max-w-lg border border-gray-300 rounded overflow-hidden shadow-lg mx-4 my-2 flex" *ngFor="let product of similarProducts" >
-          <div class="cursor-pointer flex items-center p-1 space-x-3" (click)="openProductDetail(product._id)">
+          <div class="cursor-pointer flex items-center p-2 space-x-3" (click)="openProductDetail(product._id)">
             <img class="w-40 h-36" src="{{product?.images[0]}}" alt="Sunset in the mountains">
             <div class="text-start">
               <p class="font-semibold">{{product.productName}}</p>

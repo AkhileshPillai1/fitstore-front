@@ -11,20 +11,21 @@ export class ProductService {
     private http: HttpClient
   ) { }
 
-  // getProducts():Observable<object[]> {
-  //   return of(Products);
-  // }
-
-  /** GET heroes from the server */
-  getProducts(category = 0): Observable<object[]> {
-    let httpParams = new HttpParams().set('category', category);
-    return this.http.get<object[]>(this.url, { params: httpParams });
+  getProducts(filters = {}): Observable<object[]> {
+    if (Object.keys(filters).length == 0) {
+      return this.http.get<object[]>(this.url);
+    }
+    else {
+      let params = new HttpParams();
+      Object.keys(filters).forEach(key => {
+        params = params.set(key, filters[key]);
+      });
+      return this.http.get<object[]>(this.url, { params });
+    }
   }
 
   getProduct(id: string): Observable<object> {
     return this.http.get<object[]>(`${this.url}${id}`);
-    // const product = Products.find(p => p.productName === id)!;
-    // return of(product);
   }
 
   addReview(productId, payload): Observable<object> {
