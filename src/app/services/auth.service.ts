@@ -13,4 +13,13 @@ export class AuthService {
   login(userInfo){
     return this.http.post(`${this.url}users/login`,userInfo);
   }
+
+  updateUserDetails(userObj){
+    return this.http.put(`${this.url}users/update`,userObj);
+  }
+
+  updateAddresses(addressObj){
+    return this.http.put(`${this.url}users/updateaddresses`,addressObj);
+  }
+
 }
