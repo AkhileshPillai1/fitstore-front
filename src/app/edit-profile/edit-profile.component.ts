@@ -26,10 +26,10 @@ export class EditProfileComponent {
   indexForEditModal:number = 0;
 
   profileForm: FormGroup = this.formBuilder.group({
-    firstName: [{ value: '', disabled: true }],
+    firstName: [{ value: '', disabled: true },Validators.required],
     lastName: [{ value: '', disabled: true }],
-    emailId: [{ value: '', disabled: true }],
-    phoneNumber: [{ value: '', disabled: true }],
+    emailId: [{ value: '', disabled: true },[Validators.required,Validators.email]],
+    phoneNumber: [{ value: '', disabled: true },[Validators.minLength(8),Validators.maxLength(13),Validators.required]],
     address: this.formBuilder.array([])
   });
 
@@ -43,14 +43,31 @@ export class EditProfileComponent {
     zipcode:''
   });
 
+  ngOnInit() {
+    if (this.authService.currentUser()) {
+      this.setFormValues();
+      this.setAddresses(this.authService.currentUser().address)
+    }
+    else {
+      this.commonService.profileSubject$.subscribe({
+        next: () => {
+          this.setFormValues();
+          this.setAddresses(this.authService.currentUser().address)
+        }
+      })
+    }
+  }
+
+  //ADDRESS SECTION
+
+  get address() {
+    return this.profileForm.get('address') as FormArray;
+  }
+
   setAddresses(addresses: Address[]): void {
     const addressFGs = addresses.map(address => this.formBuilder.group(address));
     const addressFormArray = this.formBuilder.array(addressFGs);
     this.profileForm.setControl('address', addressFormArray);
-  }
-
-  get address() {
-    return this.profileForm.get('address') as FormArray;
   }
 
   addAddress(){
@@ -68,6 +85,8 @@ export class EditProfileComponent {
     this.callUpdateAddressApi();
   }
 
+  //MODAL SECTION
+
   openModalForNewAddress(){
     this.showModal=true;
     this.isModalModeNew=true;
@@ -84,7 +103,33 @@ export class EditProfileComponent {
       this.toggleForm()
   }
 
+  closeModal(){
+    this.showModal = false;
+    this.addressForm.reset();
+  }
 
+  //FORM SECTION
+  
+  setFormValues() {
+    this.profileForm.patchValue({
+      firstName: this.authService.currentUser().firstName,
+      lastName: this.authService.currentUser().lastName,
+      emailId: this.authService.currentUser().emailId,
+      phoneNumber: this.authService.currentUser().phoneNumber,
+    });
+  }
+
+  toggleForm() {
+    if (this.isFormEditable) {
+      this.isFormEditable = false;
+      this.setFormValues();
+      this.profileForm.disable();
+    }
+    else {
+      this.isFormEditable = true;
+      this.profileForm.enable();
+    }
+  }
 
   callUpdateAddressApi(){
     this.loaderService.start();
@@ -102,60 +147,28 @@ export class EditProfileComponent {
     })
   }
 
-  closeModal(){
-    this.showModal = false;
-    this.addressForm.reset();
-  }
-
-  ngOnInit() {
-    if (this.authService.currentUser()) {
-      this.setFormValues();
-      this.setAddresses(this.authService.currentUser().address)
-    }
-    else {
-      this.commonService.profileSubject$.subscribe({
-        next: () => {
-          this.setFormValues();
-          this.setAddresses(this.authService.currentUser().address)
-        }
-      })
-    }
-  }
-
-  toggleForm() {
-    if (this.isFormEditable) {
-      this.isFormEditable = false;
-      this.setFormValues();
-      this.profileForm.disable();
-    }
-    else {
-      this.isFormEditable = true;
-      this.profileForm.enable();
-    }
-  }
-
   saveChanges() {
-    this.loaderService.start();
-    this.authService.updateUserDetails(this.profileForm.value).subscribe({
-      next: (res: User) => {
-        this.authService.currentUser.set(res);
-        this.loaderService.stop();
-        this.commonService.showToast({ message: 'Changes saved!', type: "success", timeout: 250 });
-        this.toggleForm();
-      },
-      error: ()=>{
-        this.loaderService.stop();
-        this.commonService.showToast({ message: 'Something went wrong!', type: "error", timeout: 250 });
-      }
-    })
+    console.log(this.profileForm.get('phoneNumber').errors)
+    if(this.profileForm.valid){
+      console.log(this.profileForm.valid);
+      console.log(this.profileForm.get('firstName').valid);
+      this.loaderService.start();
+      this.authService.updateUserDetails(this.profileForm.value).subscribe({
+        next: (res: User) => {
+          this.authService.currentUser.set(res);
+          this.loaderService.stop();
+          this.commonService.showToast({ message: 'Changes saved!', type: "success", timeout: 250 });
+          this.toggleForm();
+        },
+        error: ()=>{
+          this.loaderService.stop();
+          this.commonService.showToast({ message: 'Something went wrong!', type: "error", timeout: 250 });
+        }
+      });
+    }
+    else{
+      this.commonService.showToast({ message: 'Please check the form for errors', type: "error", timeout: 0});
+    }
   }
 
-  setFormValues() {
-    this.profileForm.patchValue({
-      firstName: this.authService.currentUser().firstName,
-      lastName: this.authService.currentUser().lastName,
-      emailId: this.authService.currentUser().emailId,
-      phoneNumber: this.authService.currentUser().phoneNumber,
-    });
-  }
 }

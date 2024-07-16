@@ -1,7 +1,16 @@
-.address{
+.address {
     width: 650px;
 }
 
-.modal{
+.modal {
     width: 600px;
+}
+
+.error {
+    border-width: 2px;
+    border-color: #D24545;
+}
+
+.errorMessage{
+    left:326px;
 }
