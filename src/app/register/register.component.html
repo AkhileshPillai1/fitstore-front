@@ -84,8 +84,8 @@
                 </div>
 
 
-                <div class="mt-8 flex justify-center border bg-blue-500 text-white rounded h-10">
-                    <button type="submit" [disabled]="!registerForm.valid">Sign Up</button>
+                <div class="mt-8 flex justify-center border bg-blue-500 text-white rounded h-10 cursor-pointer" [ngClass]="registerForm.invalid || !passwordsMatch?'bg-slate-400':'bg-blue-500'">
+                    <button type="submit" [disabled]="registerForm.invalid || !passwordsMatch" class="w-full">Sign Up</button>
                 </div>
             </form>
             <h4 class="text-slate-600 mt-8 text-center font-semibold">Already have an account?

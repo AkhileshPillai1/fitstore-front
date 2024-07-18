@@ -68,12 +68,12 @@ export class RegisterComponent {
             this.loginUser({ emailId: this.registerForm.get('emailId').value, password: this.registerForm.get('password').value });
           else {
             this.loaderService.stop();
-            this.commonService.showToast({ message: 'Something went wrong', type: "error" });
+            this.commonService.showToast({ message: res['message'] ? res['message'] : 'Something went wrong', type: "error" });
           }
         },
-        error: () => {
+        error: (err) => {
           this.loaderService.stop();
-          this.commonService.showToast({ message: 'Something went wrong', type: "error" });
+          this.commonService.showToast({ message: err.error && err.error.message ? err.error.message :'Something went wrong', type: "error" });
         }
       });
   }
