@@ -1,0 +1,97 @@
+<div class="flex justify-around mt-8">
+
+    <section class="flex justify-end items-center  loginsection">
+        <img src="../../assets/register.png" alt="" class="loginimage">
+    </section>
+
+    <section class="logindiv flex justify-start items-center  loginsection">
+        <div class="">
+            <h3 class="font-bold mb-10 text-2xl text-center">Create a Free Account!</h3>
+            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+                <div class="mb-4 relative mt-5">
+                    <i class="text-xl fa fa-id-card-o absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="firstName" type="email"
+                        formControlName="firstName" placeholder="First Name..."
+                        [ngClass]="(registerForm.get('firstName').dirty || registerForm.get('firstName').touched) && registerForm.get('firstName').invalid?'error':''">
+                    <p class="absolute errorMessage top-10 text-xs text-red-500"
+                        *ngIf="(this.registerForm.get('firstName').touched || this.registerForm.get('firstName').dirty) &&  this.registerForm.get('firstName').invalid">
+                        Please enter name</p>
+                </div>
+
+                <div class="mb-4 relative mt-5">
+                    <i class="text-xl fa fa-id-card-o absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="lastName" type="text"
+                        formControlName="lastName" placeholder="Last Name...">
+                </div>
+
+                <div class="mb-4 relative mt-5">
+                    <i class="text-xl fa fa-envelope-o absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="name" type="email"
+                        formControlName="emailId" placeholder="Email ID..."
+                        [ngClass]="(registerForm.get('emailId').dirty || registerForm.get('emailId').touched) && registerForm.get('emailId').invalid?'error':''">
+                    <p class="absolute errorMessage top-10 text-xs text-red-500"
+                        *ngIf="((this.registerForm.get('emailId').touched || this.registerForm.get('emailId').dirty) && this.registerForm.get('emailId').invalid)">
+                        <span *ngIf="this.registerForm.get('emailId').errors['required']">Please enter an email
+                            ID</span>
+                        <span *ngIf="this.registerForm.get('emailId').errors['email']">Please enter a valid email
+                            ID</span>
+                    </p>
+                </div>
+
+                <div class="mb-4 relative mt-5">
+                    <i class="text-xl fa fa-phone-square absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="phoneNumber" type="text"
+                        formControlName="phoneNumber" placeholder="Phone Number..."
+                        [ngClass]="(registerForm.get('phoneNumber').dirty || registerForm.get('phoneNumber').touched) && registerForm.get('phoneNumber').invalid?'error':''">
+                    <p class="absolute errorMessage top-10 text-xs text-red-500"
+                        *ngIf="((this.registerForm.get('phoneNumber').touched || this.registerForm.get('phoneNumber').dirty) && this.registerForm.get('phoneNumber').invalid)">
+                        <span *ngIf="this.registerForm.get('phoneNumber').errors['required']">Please enter a
+                            phone number</span>
+                        <span
+                            *ngIf="this.registerForm.get('phoneNumber').errors['minlength'] || this.registerForm.get('phoneNumber').errors['maxlength'] || this.registerForm.get('phoneNumber').errors['numeric']">Please
+                            enter a valid
+                            phone number</span>
+                    </p>
+                </div>
+
+                <div class="mb-4 relative mt-5">
+                    <i class="text-xl fa fa-key absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="name"
+                        formControlName="password" [type]="showPassword?'text':'password'" placeholder="Password...">
+                    <i class="fa absolute right-2 text-xl top-1.5 text-slate-600 cursor-pointer"
+                        (click)="showPassword = !showPassword" aria-hidden="true"
+                        [ngClass]="showPassword?'fa-eye':'fa-eye-slash'"></i>
+                </div>
+
+                <div class="mb-4 relative mt-5">
+                    <i class="text-xl fa fa-key absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="confirmPassword"
+                        [type]="showPassword2?'text':'password'" placeholder="Confirm Password..."
+                        formControlName="confirmPassword">
+                    <i class="fa absolute right-2 text-xl top-1.5 text-slate-600 cursor-pointer"
+                        (click)="showPassword2 = !showPassword2" aria-hidden="true"
+                        [ngClass]="showPassword2?'fa-eye':'fa-eye-slash'"></i>
+                    <p class="absolute errorMessage text-sm text-red-500" *ngIf="!passwordsMatch">
+                        Passwords don't match
+                    </p>
+                </div>
+
+
+                <div class="mt-8 flex justify-center border bg-blue-500 text-white rounded h-10">
+                    <button type="submit" [disabled]="!registerForm.valid">Sign Up</button>
+                </div>
+            </form>
+            <h4 class="text-slate-600 mt-8 text-center font-semibold">Already have an account?
+                <a routerLink="/login" routerLinkActive="active" class="cursor-pointer text-blue-700">Login!</a>
+            </h4>
+        </div>
+    </section>
+
+</div>

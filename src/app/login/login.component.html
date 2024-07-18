@@ -1,19 +1,43 @@
-<div class="logindiv flex justify-center items-center">
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+<div class="flex justify-around mt-8">
+
+    <section class="flex justify-end items-center  loginsection">
+        <img src="../../assets/login.png" alt="" class="loginimage">
+    </section>
+
+    <section class="logindiv flex justify-start items-center  loginsection">
         <div class="">
-            <div class="mb-3">
-                <div><label for="name">Email: </label></div>
-                
-                <input class="border" id="name" type="email" formControlName="emailId">
-            </div>
-            <div class="mb-3">
-                <div><label for="name">Password: </label></div>
-                
-                <input class="border" id="name" type="text" formControlName="password">
-            </div>
-            <div class="mt-12 flex justify-center">
-                <button type="submit" [disabled]="!loginForm.valid">Login</button>
-            </div>
+            <h3 class="font-bold mb-10 text-2xl text-center">Welcome back!</h3>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+                <div class="mb-4 relative">
+                    <i class="text-xl fa fa-envelope-o absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="name" type="email"
+                        formControlName="emailId">
+                </div>
+
+                <div class="mb-4 relative">
+                    <i class="text-xl fa fa-key absolute top-1.5 left-1 text-blue-600 px-2 rounded"
+                        aria-hidden="true"></i>
+                    <input class="border pl-12 rounded h-10 w-80 bg-slate-100 text-sm" id="name"
+                        formControlName="password" [type]="showPassword?'text':'password'">
+                    <i class="fa absolute right-2 text-xl top-1.5 text-slate-600 cursor-pointer" [title]="showPassword?'Hide':'Show'"
+                        (click)="showPassword = !showPassword" aria-hidden="true"
+                        [ngClass]="showPassword?'fa-eye-slash':'fa-eye'"></i>
+                </div>
+
+                <p class="text-sm font-semibold text-blue-500 text-end mt-5">
+                    Forgot Password?
+                </p>
+
+                <div class="mt-8 flex justify-center border bg-blue-500 text-white rounded h-10">
+                    <button type="submit" [disabled]="!loginForm.valid">Login</button>
+                </div>
+            </form>
+            <h4 class="text-slate-600 mt-8 text-center font-semibold">Don't have an account?
+                <a routerLink="/register" routerLinkActive="active" class="cursor-pointer text-blue-700">Sign Up!</a>
+            </h4>
         </div>
-    </form>
+    </section>
+
 </div>

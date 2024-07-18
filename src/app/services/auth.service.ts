@@ -14,6 +14,10 @@ export class AuthService {
     return this.http.post(`${this.url}users/login`,userInfo);
   }
 
+  register(payload){
+    return this.http.post(`${this.url}users/register`,payload);
+  }
+
   updateUserDetails(userObj){
     return this.http.put(`${this.url}users/update`,userObj);
   }

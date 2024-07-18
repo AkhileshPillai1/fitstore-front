@@ -1,14 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { CommonService } from '../services/common.service';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -23,6 +24,8 @@ export class LoginComponent {
     password: ['johnsmithx321']
   })
 
+  showPassword: boolean = false;
+
   onSubmit() {
     this.loaderService.start();
     this.authService.login(this.loginForm.value).subscribe(
@@ -33,10 +36,11 @@ export class LoginComponent {
           this.loaderService.stop();
           this.router.navigateByUrl('/products');
         },
-      error: () => {
-        this.loaderService.stop();
-        this.commonService.showToast({message:'Incorrect user credentials',type:"error"});
-      }});
+        error: () => {
+          this.loaderService.stop();
+          this.commonService.showToast({ message: 'Incorrect user credentials', type: "error" });
+        }
+      });
   }
 
 }

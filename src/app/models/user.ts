@@ -3,7 +3,6 @@ import { CartItem } from "./cartItem";
 
 export interface User{
     _id:string,
-    userName:string,
     emailId:string,
     password:string,
     firstName:string,

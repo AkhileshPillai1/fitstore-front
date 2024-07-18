@@ -10,3 +10,8 @@
 .loginsection{
     width: 700px;
 }
+
+.error {
+    border-width: 2px;
+    border-color: #D24545;
+}
