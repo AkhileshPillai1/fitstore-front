@@ -30,7 +30,7 @@
                     Forgot Password?
                 </p>
 
-                <div class="mt-8 flex justify-center border bg-blue-500 text-white rounded h-10">
+                <div class="mt-8 flex justify-center border bg-blue-500 text-white rounded h-10" [ngClass]="loginForm.invalid?'bg-slate-400':'bg-blue-500'">
                     <button type="submit" [disabled]="!loginForm.valid">Login</button>
                 </div>
             </form>

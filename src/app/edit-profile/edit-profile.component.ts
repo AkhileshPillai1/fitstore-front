@@ -40,7 +40,8 @@ export class EditProfileComponent {
     line3: '',
     city: '',
     state: '',
-    zipcode:''
+    zipcode:'',
+    isDefault:false
   });
 
   ngOnInit() {

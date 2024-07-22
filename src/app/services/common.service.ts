@@ -27,6 +27,10 @@ export class CommonService {
     return this.http.post(`${this.url}common/addtocart`,cartObject);
   }
 
+  clearCart():Observable<object>{
+    return this.http.get(`${this.url}common/clearcart`);
+  }
+
   getCartDetails(){
     return this.http.get(`${this.url}common/getcart`);
   }

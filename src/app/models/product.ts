@@ -1,4 +1,5 @@
 export interface Product {
+    _id:string,
     productCode:string,
     productName:string,
     description:string,
@@ -14,4 +15,3 @@ export interface Product {
     seller:string,
     rating:number
 }
-  

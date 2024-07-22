@@ -1,122 +1,137 @@
-<div class="flex justify-center">
-    <div class="my-10 pb-5 text-3xl font-bold max-w-3xl">My Cart</div>
-</div>
-<div *ngIf="cart" class="flex justify-center space-x-10">
-    <div class="left pr-5">
-        <div class="grid grid-cols-3 mb-4 ml-2 p-3 relative shadow item" *ngFor="let item of cart">
-            <button class="material-symbols-outlined absolute right-2 mt-2 text-gray-600"
-                (click)="deleteItemFromCart(item.product._id)">
-                delete
-            </button>
-            <button class="absolute close mr-2"><i class="fa-solid fa-xmark"></i></button>
-            <div class="w-40 h-40 cursor-pointer" (click)="openProductDetail(item.product._id)">
-                <img [src]="item.product.images[0]">
-            </div>
-            <div class="flex items-center col-span-2 px-4">
-                <div>
-                    <p class="font-semibold">{{item.product.productName}}</p>
-                    <p class="mb-3 text-gray-500">{{item.product.description}}</p>
-                    <p>
-                        <span *ngIf="item.product.discountPercentage > 0">
-                            <span class="line-through text-gray-500">&#8377;{{item.product.price}}</span>
-                            <span
-                                class="ml-1 mr-2 font-semibold">&#8377;{{item.product.price-(item.product.discountPercentage/100*item.product.price)}}</span>
-                            <span class="text-pink-500"> {{item.product.discountPercentage}}% OFF</span>
-                        </span>
-                        <span *ngIf="item.product.discountPercentage === 0">
-                            <span class="font-semibold">&#8377;{{item.product.price}}</span>
-                        </span>
-                    </p>
-                    <div class="custom-select">
-                        <label for="" class="mr-2">Quantity</label>
-                        <select [(ngModel)]="item.userQuantity" (change)="onChangeQuantity(item)">
-                            <option value="{{i}}" *ngFor="let i of quantity">{{i}}</option>
-                        </select>
+<div *ngIf="!ordercreationInProgress">
+    <div *ngIf="!showOrderConfirmedPage">
+        <div class="flex justify-center">
+            <div class="my-10 pb-5 text-3xl font-bold max-w-3xl">My Cart</div>
+        </div>
+        <div *ngIf="cart" class="flex justify-center space-x-10">
+            <div *ngIf="!isAddressSelect" class="left pr-5">
+                <div class="grid grid-cols-3 mb-4 ml-2 p-3 relative shadow item" *ngFor="let item of cart">
+                    <button class="material-symbols-outlined absolute right-2 mt-2 text-gray-600"
+                        (click)="deleteItemFromCart(item.product._id)">
+                        delete
+                    </button>
+                    <button class="absolute close mr-2"><i class="fa-solid fa-xmark"></i></button>
+                    <div class="w-40 h-40 cursor-pointer" (click)="openProductDetail(item.product._id)">
+                        <img [src]="item.product.images[0]">
+                    </div>
+                    <div class="flex items-center col-span-2 px-4">
+                        <div>
+                            <p class="font-semibold">{{item.product.productName}}</p>
+                            <p class="mb-3 text-gray-500">{{item.product.description}}</p>
+                            <p>
+                                <span *ngIf="item.product.discountPercentage > 0">
+                                    <span class="line-through text-gray-500">&#8377;{{item.product.price}}</span>
+                                    <span
+                                        class="ml-1 mr-2 font-semibold">&#8377;{{item.product.price-(item.product.discountPercentage/100*item.product.price)}}</span>
+                                    <span class="text-pink-500"> {{item.product.discountPercentage}}% OFF</span>
+                                </span>
+                                <span *ngIf="item.product.discountPercentage === 0">
+                                    <span class="font-semibold">&#8377;{{item.product.price}}</span>
+                                </span>
+                            </p>
+                            <div class="custom-select">
+                                <label for="" class="mr-2">Quantity</label>
+                                <select [(ngModel)]="item.userQuantity" (change)="onChangeQuantity(item)">
+                                    <option value="{{i}}" *ngFor="let i of quantity">{{i}}</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div *ngIf="isAddressSelect" class="address pr-5">
+                <app-address-select></app-address-select>
+            </div>
+            <div class="right my-4 px-2">
+                <h3 class="flex justify-center items-center mt-2 font-bold">Order Summary</h3>
+                <div class="h-32 mt-4">
+                    <div class="mt-2 ml-2 flex items-center">
+                        <span class="material-symbols-outlined">
+                            sell
+                        </span>
+                        <p class="ml-1 font-bold">Apply Coupon</p>
+                    </div>
+
+                    <div class="flex justify-center relative items-center mt-4">
+                        <input type="text" class="coupon bg-slate-200 h-14 pl-2" placeholder="Enter coupon"
+                            [(ngModel)]="coupon" [disabled]="validCoupon">
+                        <button *ngIf="!validCoupon" class="text-blue-400 absolute right-7 font-semibold"
+                            (click)="checkAndApplyCoupon()">APPLY</button>
+                        <button *ngIf="validCoupon" class="text-red-400 absolute right-3 font-semibold"
+                            (click)="remmoveCoupon()"><span class="material-symbols-outlined text-3xl">
+                                cancel
+                            </span></button>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="flex items-center mt-2 ml-2">
+                        <span class="material-symbols-outlined">
+                            payments
+                        </span>
+                        <p class="ml-1 font-bold">Price Details</p>
+                    </div>
+                    <div class="mt-4">
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <p class="text-gray-500">Total MRP :</p>
+                                <p class="flex items-center">
+                                    <span class="material-symbols-outlined text-lg">
+                                        currency_rupee
+                                    </span> {{totalMrp}}
+                                </p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-gray-500">Discount on MRP :</p>
+                                <p class="flex items-center">
+                                    <span class="material-symbols-outlined text-lg">
+                                        currency_rupee
+                                    </span> {{discountOnMrp}}
+                                </p>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <p class="text-gray-500">Delivery Fee :</p>
+                                <p class="flex items-center">
+                                    <span class="material-symbols-outlined text-lg">
+                                        currency_rupee
+                                    </span> {{deliveryFee}}
+                                </p>
+                            </div>
+                            <hr>
+                            <div class=" pt-5">
+                                <div *ngIf="validCoupon" class="flex items-center justify-between my-2 text-green-300">
+                                    <p class="text-green-300">Coupon Discount :</p>
+                                    <p class="flex items-center">
+                                        <span class="material-symbols-outlined text-lg">
+                                            currency_rupee
+                                        </span> {{couponAmt}}
+                                    </p>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <p class="font-semibold">Total Amount :</p>
+                                    <p class="flex items-center">
+                                        <span class="material-symbols-outlined text-lg">
+                                            currency_rupee
+                                        </span> {{totalAmount}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <button class="checkout text-white"
+                                (click)="isAddressSelect?createOrder():toggleAddressSelect()">
+                                <p *ngIf="!isAddressSelect">CHECKOUT</p>
+                                <p *ngIf="isAddressSelect">PLACE ORDER</p>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
         </div>
+
     </div>
-    <div class="right my-4 px-2">
-        <h3 class="flex justify-center items-center mt-2 font-bold">Order Summary</h3>
-        <div class="h-32 mt-4">
-            <div class="mt-2 ml-2 flex items-center">
-                <span class="material-symbols-outlined">
-                    sell
-                </span>
-                <p class="ml-1 font-bold">Apply Coupon</p>
-            </div>
-
-            <div class="flex justify-center relative items-center mt-4">
-                <input type="text" class="coupon bg-slate-200 h-14 pl-2" placeholder="Enter coupon" [(ngModel)]="coupon"
-                    [disabled]="validCoupon">
-                <button *ngIf="!validCoupon" class="text-blue-400 absolute right-7 font-semibold"
-                    (click)="checkAndApplyCoupon()">APPLY</button>
-                <button *ngIf="validCoupon" class="text-red-400 absolute right-3 font-semibold"
-                    (click)="remmoveCoupon()"><span class="material-symbols-outlined text-3xl">
-                        cancel
-                    </span></button>
-            </div>
-        </div>
-        <div class="">
-            <div class="flex items-center mt-2 ml-2">
-                <span class="material-symbols-outlined">
-                    payments
-                </span>
-                <p class="ml-1 font-bold">Price Details</p>
-            </div>
-            <div class="mt-4">
-                <div class="space-y-2">
-                    <div class="flex items-center justify-between">
-                        <p class="text-gray-500">Total MRP :</p>
-                        <p class="flex items-center">
-                            <span class="material-symbols-outlined text-lg">
-                                currency_rupee
-                            </span> {{totalMrp}}
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <p class="text-gray-500">Discount on MRP :</p>
-                        <p class="flex items-center">
-                            <span class="material-symbols-outlined text-lg">
-                                currency_rupee
-                            </span> {{discountOnMrp}}
-                        </p>
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <p class="text-gray-500">Delivery Fee :</p>
-                        <p class="flex items-center">
-                            <span class="material-symbols-outlined text-lg">
-                                currency_rupee
-                            </span> {{deliveryFee}}
-                        </p>
-                    </div>
-                    <hr>
-                    <div class=" pt-5">
-                        <div *ngIf="validCoupon" class="flex items-center justify-between my-2 text-green-300">
-                            <p class="text-green-300">Coupon Discount :</p>
-                            <p class="flex items-center">
-                                <span class="material-symbols-outlined text-lg">
-                                    currency_rupee
-                                </span> {{couponAmt}}
-                            </p>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <p class="font-semibold">Total Amount :</p>
-                            <p class="flex items-center">
-                                <span class="material-symbols-outlined text-lg">
-                                    currency_rupee
-                                </span> {{totalAmount}}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex justify-center">
-                    <button class="checkout text-white">CHECKOUT</button>
-                </div>
-
-            </div>
-
-        </div>
+    <div *ngIf="showOrderConfirmedPage">
+        <app-order-confirmation></app-order-confirmation>
     </div>
 </div>

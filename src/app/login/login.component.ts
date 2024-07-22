@@ -21,7 +21,7 @@ export class LoginComponent {
   loaderService = inject(NgxUiLoaderService);
   loginForm = this.formBuilder.group({
     emailId: ['johnsmith@gmail.com', Validators.required],
-    password: ['johnsmithx321']
+    password: ['johnsmithx321', Validators.required]
   })
 
   showPassword: boolean = false;
