@@ -5,5 +5,6 @@ export interface OrderItem{
     mrp:number,
     itemTotal:number
     primaryImage:string,
-    productName:string
+    productName:string,
+    status:string
  }

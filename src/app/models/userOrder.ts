@@ -17,5 +17,6 @@ export interface UserOrder {
     orderItems:Array<OrderItem>,
     createdAt:Date,
     updatedAt:Date,
-    deliveryAddress:Address
+    deliveryAddress:Address,
+    status:string
 }

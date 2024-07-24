@@ -158,7 +158,8 @@ export class CartComponent {
         mrp: item.product.price,
         itemTotal: item.product.price - (item.product.price * item.product.discountPercentage / 100),
         primaryImage: item.product.images[0],
-        productName: item.product.productName
+        productName: item.product.productName,
+        status : "Pending"
       }
     })
 

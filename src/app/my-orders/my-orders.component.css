@@ -1,0 +1,19 @@
+.order {
+    width: 950px;
+}
+
+.main {
+    padding-left: 450px;
+    padding-right: 450px;
+}
+
+.header{
+    background-color: #F7F7F6;
+}
+
+.status{
+    top : 80px;
+    right : 15px;
+    background-color: blue;
+    color: white;
+}

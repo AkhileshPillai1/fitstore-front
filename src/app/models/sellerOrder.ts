@@ -12,5 +12,6 @@ export interface SellerOrder {
     totalAmount: number,
     userOrderId: string,
     createdAt:Date,
-    updatedAt:Date
+    updatedAt:Date,
+    status:string
 }
