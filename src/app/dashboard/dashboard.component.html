@@ -1,0 +1,59 @@
+<div class="main mt-10">
+    <section class="">
+        <h1 class="text-sm text-gray-400">Good morning,</h1>
+        <h3 class="font-semibold text-xl">{{authService.currentUser().firstName+" "+authService.currentUser().lastName}}
+        </h3>
+    </section>
+
+    <section class="border rounded-xl mt-8 reports text-white flex justify-between items-center">
+        <div class="pl-16">
+            <p class="text-2xl font-semibold">Here are your weekly sales reports...</p>
+            <p class="mt-10 font-semibold">Total sales revenue: <i class="fa fa-inr" aria-hidden="true"></i> 23,000</p>
+            <button class="bg-white reportbutton px-3 py-1 rounded mt-2">
+                View report <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div>
+            <img class="w-56 h-40 pr-16" src="../../assets/sales.png" alt="">
+        </div>
+    </section>
+
+    <div class="flex justify-between mt-8">
+        <div class="analytics">
+
+            <section class="border rounded-xl shadow px-3">
+                <h1 class="pl-5 pt-2 text-xl font-semibold">Analytics</h1>
+                <div class="flex justify-around text-start py-5">
+                    <div class="border rounded shadow py-4 pr-6 pl-2 bg-blue-50">
+                        <h1 class="text-xl font-semibold">1113</h1>
+                        <p class="text-gray-500">Total Orders</p>
+                    </div>
+                    <div class="border rounded shadow py-3 pr-6 pl-2 bg-blue-50">
+                        <h1 class="text-xl font-semibold"><i class="fa fa-inr" aria-hidden="true"></i> 1,15,000</h1>
+                        <p class="text-gray-500">Total Revenue</p>
+                    </div>
+                    <div class="border rounded shadow py-3 pr-6 pl-2 bg-blue-50">
+                        <h1 class="text-xl font-semibold">12</h1>
+                        <p class="text-gray-500">Total Products</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="flex justify-between mt-6">
+                <div class="text-center rounded border shadow p-4 buttons">
+                    <p class="font-semibold">Manage Orders</p>
+                    <button class="orderbutton px-3 py-1.5 text-white rounded mt-4">Orders</button>
+                </div>
+                <div class="text-center rounded border shadow p-4 buttons">
+                    <p class="font-semibold">Manage Inventory</p>
+                    <button class="orderbutton px-3 py-1.5 text-white rounded mt-4">Inventory</button>
+                </div>
+            </section>
+        </div>
+
+        <section class="topsellers">
+            TOP SELLERS
+        </section>
+    </div>
+
+</div>

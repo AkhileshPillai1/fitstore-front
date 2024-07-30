@@ -34,7 +34,10 @@ export class LoginComponent {
           localStorage.setItem('authToken', res["bearerToken"]);
           this.authService.currentUser.set(res['user']);
           this.loaderService.stop();
-          this.router.navigateByUrl('/products');
+          if (res['user'].persona == 2)
+            this.router.navigateByUrl('/seller/dashboard');
+          else
+            this.router.navigateByUrl('/products');
         },
         error: () => {
           this.loaderService.stop();

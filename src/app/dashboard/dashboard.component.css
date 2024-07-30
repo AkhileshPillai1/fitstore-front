@@ -1,0 +1,29 @@
+.main{
+    padding:0px 0px 0px 150px;
+    width: 1000px;
+}
+
+.reports{
+    background: linear-gradient(to right, #2b76f0, #8daee4);;
+    padding: 13px 15px;
+}
+
+.reportbutton{
+    color: #3B82F6;
+}
+
+.analytics{
+    width: 57%;
+}
+
+.topsellers{
+    width: 37%;
+}
+
+.orderbutton{
+    background-color: #3B82F6;
+}
+
+.buttons{
+    width: 48.75%;
+}
